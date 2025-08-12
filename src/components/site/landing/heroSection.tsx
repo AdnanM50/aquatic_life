@@ -18,26 +18,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-blue-900/50 via-teal-900/70 to-slate-900/90"></div>
         
         {/* Animated Waves */}
-        <div className="absolute bottom-0 left-0 w-full h-32 opacity-30">
-          <svg className="absolute bottom-0 w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,60 C300,120 600,0 900,60 C1050,90 1150,30 1200,60 L1200,120 L0,120 Z" fill="url(#wave-gradient)">
-              <animateTransform
-                attributeName="transform"
-                type="translate"
-                values="0,0;-100,0;0,0"
-                dur="10s"
-                repeatCount="indefinite"
-              />
-            </path>
-            <defs>
-              <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#0891b2" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#0d9488" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#0891b2" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+       
 
         {/* Floating Bubbles */}
         <div className="absolute inset-0 overflow-hidden">
@@ -63,18 +44,7 @@ export default function HeroSection() {
           ))}
         </div>
 
-        {/* Coral Silhouettes */}
-        <div className="absolute bottom-0 left-0 w-full h-64 opacity-20">
-          <svg viewBox="0 0 1200 300" className="w-full h-full">
-            <path d="M0,300 L0,200 Q50,150 100,180 Q150,120 200,160 Q250,100 300,140 Q350,80 400,120 Q450,60 500,100 Q550,40 600,80 Q650,20 700,60 Q750,0 800,40 Q850,20 900,60 Q950,40 1000,80 Q1050,60 1100,100 Q1150,80 1200,120 L1200,300 Z" fill="url(#coral-gradient)" />
-            <defs>
-              <linearGradient id="coral-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#f97316" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#ea580c" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+       
       </div>
 
       {/* Content */}
