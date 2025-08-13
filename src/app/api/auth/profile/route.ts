@@ -24,12 +24,17 @@ export async function PUT(request: Request) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = AuthService.verifyToken(token); // Verify token and get user ID
-    if (!userId) {
+    const session = AuthService.verifyToken(token); // Verify token and get user session
+    if (!session || !session.id) {
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
     const data = await request.json(); // Get the updated profile data from the request
-    // const updatedProfile = await updateUserProfile(userId, data); // Update user profile in DB
-    return NextResponse.json(data);
+    const success = await AuthService.updateUser(session.id, data);
+    if (!success) {
+        return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
+    }
+    // Optionally, fetch updated profile
+    const updatedProfile = await AuthService.getUserById(session.id);
+    return NextResponse.json(updatedProfile);
 }
