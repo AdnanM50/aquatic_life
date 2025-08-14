@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
+import { model, Schema } from "mongoose";
 
-export interface User {
+export interface TUser {
   _id?: ObjectId;
   email: string;
   password: string;
@@ -24,22 +25,53 @@ export interface User {
   };
 }
 
-export interface CreateUserData {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
+export const UserSchema = new Schema<TUser>({
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['customer', 'admin'],
+    default: 'customer',
+  },
+  isEmailVerified: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  lastLogin: {
+    type: Date,
+    required: false,
+  },
+  preferences: {
+    type: Object,
+    required: false,
+  },
+  address: {
+    type: Object,
+    required: false,
+  }
+})
 
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface UserSession {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-}
+export const User = model<TUser>('User', UserSchema);

@@ -2,15 +2,26 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { getDatabase } from '@/db/mongodb';
 import { ObjectId } from 'mongodb';
-import { User, CreateUserData, LoginCredentials, UserSession } from '@/models/user';
+import type { TUser } from '@/models/user';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
+// Local DTO/session types to avoid editing the model file
+export type CreateUserData = Pick<TUser, 'email' | 'password' | 'firstName' | 'lastName'>;
+export type LoginCredentials = { email: string; password: string };
+export type UserSession = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: TUser['role'];
+};
+
 export class AuthService {
   private static async getUsersCollection() {
     const db = await getDatabase();
-    return db.collection<User>('users');
+    return db.collection<TUser>('users');
   }
 
   static async hashPassword(password: string): Promise<string> {
@@ -48,7 +59,7 @@ export class AuthService {
       const hashedPassword = await this.hashPassword(userData.password);
 
       // Create user document
-      const newUser: Omit<User, '_id'> = {
+      const newUser: Omit<TUser, '_id'> = {
         email: userData.email.toLowerCase(),
         password: hashedPassword,
         firstName: userData.firstName,
@@ -119,7 +130,7 @@ export class AuthService {
     }
   }
 
-  static async getUserById(userId: string): Promise<User | null> {
+  static async getUserById(userId: string): Promise<TUser | null> {
     try {
       const users = await this.getUsersCollection();
       return await users.findOne({ _id: new ObjectId(userId) });
@@ -129,13 +140,65 @@ export class AuthService {
     }
   }
 
-  static async updateUser(userId: string, updateData: Partial<User>): Promise<boolean> {
+  static async updateUser(userId: string, updateData: Partial<TUser>): Promise<boolean> {
     try {
       const users = await this.getUsersCollection();
+
+      // Whitelist of fields that are allowed to be updated
+      const allowedTopLevelFields = new Set<keyof Partial<TUser>>([
+        'firstName',
+        'lastName',
+        'email',
+        'password',
+        'preferences',
+        'address',
+      ]);
+
+      const fieldsToSet: Record<string, unknown> = {};
+
+      // Normalize and prepare fields
+      if (typeof (updateData as any)?.firstName === 'string') {
+        fieldsToSet.firstName = (updateData as any).firstName.trim();
+      }
+      if (typeof (updateData as any)?.lastName === 'string') {
+        fieldsToSet.lastName = (updateData as any).lastName.trim();
+      }
+      if (typeof (updateData as any)?.email === 'string') {
+        fieldsToSet.email = (updateData as any).email.toLowerCase().trim();
+      }
+      if ((updateData as any)?.preferences && typeof (updateData as any).preferences === 'object') {
+        fieldsToSet.preferences = (updateData as any).preferences;
+      }
+      if ((updateData as any)?.address && typeof (updateData as any).address === 'object') {
+        fieldsToSet.address = (updateData as any).address;
+      }
+
+      // Handle password hashing if a new password was provided
+      if (typeof (updateData as any)?.password === 'string' && (updateData as any).password.trim().length > 0) {
+        const hashed = await this.hashPassword((updateData as any).password);
+        fieldsToSet.password = hashed;
+      }
+
+      // Strip any unexpected fields
+      for (const key of Object.keys(updateData as any)) {
+        if (!allowedTopLevelFields.has(key as keyof Partial<TUser>)) {
+          delete (updateData as any)[key];
+        }
+      }
+
+      // If there are no valid fields to update, do not perform a write
+      if (Object.keys(fieldsToSet).length === 0) {
+        return false;
+      }
+
+      // Always update the timestamp alongside valid field updates
+      fieldsToSet.updatedAt = new Date();
+
       const result = await users.updateOne(
         { _id: new ObjectId(userId) },
-        { $set: { ...updateData, updatedAt: new Date() } }
+        { $set: fieldsToSet }
       );
+
       return result.modifiedCount > 0;
     } catch (error) {
       console.error('Error updating user:', error);

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CreateUserData } from '@/models/user';
+import { TUser } from '@/models/user';
 import { AuthService } from '@/utils/auth';
 
 
 export async function POST(req: NextRequest) {
   try {
-    const body: CreateUserData = await req.json();
+    const body: TUser = await req.json();
     
     // Validate required fields
     const { email, password, firstName, lastName } = body;

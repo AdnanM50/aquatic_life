@@ -8,13 +8,17 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = AuthService.verifyToken(token); // Verify token and get user ID
-    if (!userId) {
+    const session = AuthService.verifyToken(token); // Verify token and get user ID
+    if (!session || !session.id) {
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-        // const profile = await getUserProfile(userId); // Fetch user profile from DB
-        return NextResponse.json(userId);
+        const profile = await AuthService.getUserById(session.id); // Fetch user profile from DB
+        if (!profile) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
+        }
+        const { password, ...safeProfile } = profile as any;
+        return NextResponse.json(safeProfile);
 }
 
 
@@ -30,6 +34,14 @@ export async function PUT(request: Request) {
     }
 
     const data = await request.json(); // Get the updated profile data from the request
+
+    // Basic validation: ensure there is at least one updatable field
+    const updatableFields = ['firstName', 'lastName', 'email', 'password', 'preferences', 'address'];
+    const hasValidField = Object.keys(data || {}).some((k) => updatableFields.includes(k));
+    if (!hasValidField) {
+        return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+    }
+
     const success = await AuthService.updateUser(session.id, data);
     if (!success) {
         return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
