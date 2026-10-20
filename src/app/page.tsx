@@ -1,9 +1,18 @@
+import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import FeaturesBar from '@/components/FeaturesBar';
 
 export default function Home() {
   return (
-    <main className="w-full min-h-screen bg-[#02040a]">
+    <main className="relative w-full min-h-screen bg-[#02050f] overflow-x-hidden">
+      {/* Top Glassmorphic Navigation */}
+      <Navbar />
+
+      {/* Luxury Awwwards-style Hero Section with 3D Layered Depth & Wave Frame-Breaking */}
       <Hero />
+
+      {/* Clean White Lower Section (Seamless Wave Transition) */}
+      <FeaturesBar />
     </main>
   );
 }
