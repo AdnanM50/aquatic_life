@@ -53,6 +53,10 @@ body {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
+.font-cormorant {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+}
+
 .font-woobly {
   font-family: 'SuperWoobly', cursive, fantasy, sans-serif !important;
 }
@@ -146,3 +150,73 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
+
+/* Jellyfish Fluid Floating & Breathing Animations */
+@keyframes jellyfish-float {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translateY(-22px) rotate(1.2deg) scale(1.015);
+  }
+  65% {
+    transform: translateY(12px) rotate(-1.5deg) scale(0.99);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes jellyfish-swim-pulse {
+  0% {
+    transform: scale(1, 1);
+    filter: drop-shadow(0 0 35px rgba(251, 146, 60, 0.35)) drop-shadow(0 0 70px rgba(56, 189, 248, 0.2));
+  }
+  35% {
+    /* Contraction stroke (propulsion) */
+    transform: scale(0.96, 1.04) translateY(-10px);
+    filter: drop-shadow(0 0 55px rgba(251, 146, 60, 0.6)) drop-shadow(0 0 95px rgba(56, 189, 248, 0.35));
+  }
+  70% {
+    /* Slow expansion glide */
+    transform: scale(1.02, 0.98) translateY(6px);
+    filter: drop-shadow(0 0 30px rgba(251, 146, 60, 0.3)) drop-shadow(0 0 60px rgba(56, 189, 248, 0.15));
+  }
+  100% {
+    transform: scale(1, 1);
+    filter: drop-shadow(0 0 35px rgba(251, 146, 60, 0.35)) drop-shadow(0 0 70px rgba(56, 189, 248, 0.2));
+  }
+}
+
+@keyframes tentacle-drift {
+  0%, 100% {
+    transform: rotate(0deg) skewX(0deg);
+  }
+  50% {
+    transform: rotate(2deg) skewX(1.5deg);
+  }
+}
+
+@keyframes oceanic-glow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.12);
+  }
+}
+
+.animate-jellyfish-float {
+  animation: jellyfish-float 8s ease-in-out infinite;
+}
+
+.animate-jellyfish-pulse {
+  animation: jellyfish-swim-pulse 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-ocean-glow {
+  animation: oceanic-glow 7s ease-in-out infinite;
+}
+

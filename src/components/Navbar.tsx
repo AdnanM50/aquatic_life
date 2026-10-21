@@ -141,7 +141,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/[0.04] border border-white/10 backdrop-blur-xl px-5 py-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
           {[
             { label: 'Home', href: '#', active: true },
-            { label: 'Shop', href: '#shop' },
+            { label: 'Shop', href: '#categories' },
             { label: 'Aquariums', href: '#aquariums' },
             { label: 'Rare Bettas', href: '#bettas' },
             { label: 'About Us', href: '#about' },

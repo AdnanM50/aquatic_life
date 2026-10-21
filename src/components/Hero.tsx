@@ -515,7 +515,7 @@ export default function Hero() {
       {/* 5. VERTICAL PAGINATION DOTS (Right Edge — Reference Image 1) */}
       <div
         ref={paginationRef}
-        className="fixed right-6 sm:right-10 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center space-y-5"
+        className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center space-y-5"
       >
         {BETTA_SLIDES.map((slide, idx) => {
           const isActive = idx === currentSlideIndex;

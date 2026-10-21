@@ -1,6 +1,8 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FeaturesBar from '@/components/FeaturesBar';
+import AboutSection from '@/components/AboutSection';
+import CategoriesSection from '@/components/CategoriesSection';
 
 export default function Home() {
   return (
@@ -13,6 +15,12 @@ export default function Home() {
 
       {/* Clean White Lower Section (Seamless Wave Transition) */}
       <FeaturesBar />
+
+      {/* Deep Oceanarium About Section with Animated Glowing Octopus */}
+      <AboutSection />
+
+      {/* Aquarium Accessories E-Commerce Category Section (Fertilizers, Plants, CO2, Hardscape) */}
+      <CategoriesSection />
     </main>
   );
 }
