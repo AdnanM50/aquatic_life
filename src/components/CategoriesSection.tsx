@@ -185,9 +185,7 @@ export default function CategoriesSection() {
                     <h3 className="text-lg sm:text-xl font-bold font-jakarta text-white leading-tight group-hover:text-cyan-300 transition-colors">
                       {cat.title}
                     </h3>
-                    {/* <p className="text-[11px] sm:text-xs text-slate-300/80 font-light leading-relaxed">
-                      {cat.desc}
-                    </p> */}
+                   
                   </div>
 
                   {/* Bottom-Left Corner Arrow Button */}
@@ -199,16 +197,10 @@ export default function CategoriesSection() {
                     >
                       <ArrowRight className="w-5 h-5 text-slate-950 transition-transform duration-300 group-hover:translate-x-0.5" />
                     </a>
-                    {/* <a
-                      href={cat.href}
-                      className="inline-flex items-center space-x-2 px-5 py-2 rounded-full border border-white/20 bg-white/[0.04] group-hover:bg-white group-hover:text-slate-950 text-xs font-semibold tracking-wide text-white transition-all duration-300 shadow-sm"
-                    >
-                      <span>{cat.buttonText}</span>
-                      <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                    </a> */}
+                 
                   </div>
 
-                  {/* THE FRAME-BREAKING 3D CUTOUT SUBJECT (breaks out slightly on the right edge) */}
+              
                   <div
                     className={`absolute pointer-events-none z-20 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-1 ${cat.cutoutClass}`}
                   >

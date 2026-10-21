@@ -13,14 +13,15 @@ export default function Home() {
       {/* Luxury Awwwards-style Hero Section with 3D Layered Depth & Wave Frame-Breaking */}
       <Hero />
 
-      {/* Clean White Lower Section (Seamless Wave Transition) */}
-      <FeaturesBar />
+      {/* Aquarium Accessories E-Commerce Category Section (Fertilizers, Plants, CO2, Hardscape) */}
+      <CategoriesSection />
 
       {/* Deep Oceanarium About Section with Animated Glowing Octopus */}
       <AboutSection />
+    
+      {/* Clean White Lower Section (Seamless Wave Transition) */}
+      <FeaturesBar />
 
-      {/* Aquarium Accessories E-Commerce Category Section (Fertilizers, Plants, CO2, Hardscape) */}
-      <CategoriesSection />
     </main>
   );
 }
