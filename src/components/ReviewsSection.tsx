@@ -1,26 +1,11 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import Image from 'next/image';
 import {
   Star,
   CheckCircle2,
-  Sparkles,
   ShieldCheck,
-  Heart,
-  Quote,
-  MessageSquare,
-  ThumbsUp,
-  SlidersHorizontal,
-  ChevronLeft,
-  ChevronRight,
-  X,
-  Send,
-  Fish,
-  Award,
   BadgeCheck,
-  Flame,
-  Check
 } from 'lucide-react';
 
 interface Review {
@@ -179,7 +164,7 @@ type FilterTab = (typeof CATEGORY_TABS)[number];
 export default function ReviewsSection() {
   const [selectedTab, setSelectedTab] = useState<FilterTab>('All Reviews');
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
-  const [helpfulLiked, setHelpfulLiked] = useState<Record<string, boolean>>({});
+
 
 
 
@@ -198,9 +183,9 @@ export default function ReviewsSection() {
     >
       {/* Oceanic Ambient Light Glows matching site vibe */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-cyan-100/60 to-blue-100/40 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-blue-50/70 rounded-full blur-[100px]" />
-        <div className="absolute -bottom-20 right-10 w-[400px] h-[400px] bg-orange-100/30 rounded-full blur-[90px]" />
+        <div className="absolute -top-40 right-1/4 size-150 bg-linear-to-br from-cyan-100/60 to-blue-100/40 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/4 size-125 bg-blue-50/70 rounded-full blur-[100px]" />
+        <div className="absolute -bottom-20 right-10 size-100 bg-orange-100/30 rounded-full blur-[90px]" />
       </div>
 
       <div className="relative max-w-[1600px] mx-auto z-10">
@@ -269,35 +254,8 @@ export default function ReviewsSection() {
           </div>
         </div>
 
-        {/* Filter Navigation Tabs + Write a Review CTA */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-8 border-b border-slate-200/70 mb-10">
-          {/* Category Tabs */}
-          <div className="flex flex-wrap items-center gap-2">
-            {CATEGORY_TABS.map((tab) => {
-              const isActive = selectedTab === tab;
-              return (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setSelectedTab(tab)}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                    isActive
-                      ? 'bg-slate-950 text-white shadow-lg shadow-slate-900/25 scale-[1.03]'
-                      : 'bg-slate-100/90 hover:bg-slate-200 text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {tab}
-                </button>
-              );
-            })}
-          </div>
-
-        </div>
-
-        {/* REVIEWS GRID: Deep-water testimonial cards matching reference layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-4">
           {filteredReviews.map((rev) => {
-            const isLiked = !!helpfulLiked[rev.id];
             return (
               <div
                 key={rev.id}
