@@ -180,19 +180,8 @@ export default function ReviewsSection() {
   const [selectedTab, setSelectedTab] = useState<FilterTab>('All Reviews');
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
   const [helpfulLiked, setHelpfulLiked] = useState<Record<string, boolean>>({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [submittedToast, setSubmittedToast] = useState(false);
 
-  // Form State for "Write a Review" modal
-  const [formName, setFormName] = useState('');
-  const [formLocation, setFormLocation] = useState('');
-  const [formProduct, setFormProduct] = useState('');
-  const [formCategory, setFormCategory] = useState<
-    'Live Species' | 'Biotopes' | 'Flora & CO2' | 'Customer Care'
-  >('Live Species');
-  const [formRating, setFormRating] = useState(5);
-  const [formTitle, setFormTitle] = useState('');
-  const [formComment, setFormComment] = useState('');
+
 
   // Filter reviews
   const filteredReviews = useMemo(() => {
@@ -200,63 +189,7 @@ export default function ReviewsSection() {
     return reviews.filter((r) => r.productCategory === selectedTab);
   }, [reviews, selectedTab]);
 
-  const toggleHelpful = (id: string) => {
-    setHelpfulLiked((prev) => {
-      const isLiked = !!prev[id];
-      setReviews((all) =>
-        all.map((item) =>
-          item.id === id
-            ? { ...item, helpfulCount: item.helpfulCount + (isLiked ? -1 : 1) }
-            : item
-        )
-      );
-      return { ...prev, [id]: !isLiked };
-    });
-  };
-
-  const handleReviewSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formName.trim() || !formTitle.trim() || !formComment.trim()) return;
-
-    const initials =
-      formName
-        .trim()
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .slice(0, 2)
-        .toUpperCase() || 'AQ';
-
-    const newRev: Review = {
-      id: `rev-${Date.now()}`,
-      name: formName.trim(),
-      role: 'Verified Aquarist Hobbyist',
-      location: formLocation.trim() || 'United States',
-      rating: formRating,
-      date: 'Just now',
-      title: formTitle.trim(),
-      comment: formComment.trim(),
-      productName: formProduct.trim() || 'Aquafy Curated Marine Specimen',
-      productImage: '/betta-vertical.png',
-      productCategory: formCategory,
-      initials,
-      avatarGradient: 'from-cyan-500 via-blue-600 to-indigo-600',
-      highlightBadge: 'Verified Community Review',
-      specimenTag: 'Verified Buyer Order',
-      helpfulCount: 1,
-      verified: true,
-    };
-
-    setReviews([newRev, ...reviews]);
-    setIsModalOpen(false);
-    setFormName('');
-    setFormLocation('');
-    setFormProduct('');
-    setFormTitle('');
-    setFormComment('');
-    setSubmittedToast(true);
-    setTimeout(() => setSubmittedToast(false), 5000);
-  };
+ 
 
   return (
     <section
@@ -359,34 +292,7 @@ export default function ReviewsSection() {
             })}
           </div>
 
-          {/* Write a Review Button */}
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-[#ff5722] hover:bg-[#ff6e3d] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_20px_rgba(255,87,34,0.35)] hover:shadow-[0_0_28px_rgba(255,87,34,0.55)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer shrink-0"
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span>Write a Review</span>
-          </button>
         </div>
-
-        {/* Toast confirmation message */}
-        {submittedToast && (
-          <div className="mb-8 p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center justify-between animate-in fade-in slide-in-from-top-2">
-            <div className="flex items-center space-x-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-              <p className="text-xs sm:text-sm font-semibold">
-                Thank you! Your verified review has been published to the Aquafy community.
-              </p>
-            </div>
-            <button
-              onClick={() => setSubmittedToast(false)}
-              className="text-emerald-700 hover:text-emerald-900 p-1 cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        )}
 
         {/* REVIEWS GRID: Deep-water testimonial cards matching reference layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-4">
@@ -422,7 +328,7 @@ export default function ReviewsSection() {
                 </div>
 
                 {/* Card Container: Preserving full background design and hover animation */}
-                <div className="relative h-full flex flex-col justify-between overflow-hidden rounded-[2.2rem] border border-cyan-300/25 bg-[#03142b] text-white shadow-[0_18px_42px_rgba(2,21,48,0.22)] transition-all duration-500 group-hover:border-cyan-300/60 group-hover:shadow-[0_28px_65px_rgba(0,135,190,0.32)]">
+                <div className="relative h-full flex flex-col justify-between overflow-hidden rounded-tr-[8rem] rounded-bl-[8rem] rounded-[2.2rem] border border-cyan-300/25 bg-[#03142b] text-white shadow-[0_18px_42px_rgba(2,21,48,0.22)] transition-all duration-500 group-hover:border-cyan-300/60 group-hover:shadow-[0_28px_65px_rgba(0,135,190,0.32)]">
                   {/* Preserved Card Background: Water depth, coral glow, and concentric ripples */}
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_5%,rgba(34,211,238,0.24),transparent_29%),radial-gradient(circle_at_4%_100%,rgba(255,87,34,0.22),transparent_35%),linear-gradient(145deg,#062d55_0%,#031a37_47%,#020b1d_100%)]" />
                   <div className="pointer-events-none absolute -right-12 top-24 h-40 w-40 rounded-full border border-cyan-200/15 transition-transform duration-700 group-hover:scale-125" />
@@ -430,7 +336,7 @@ export default function ReviewsSection() {
                   <div className="pointer-events-none absolute -left-8 top-[55%] h-20 w-64 rounded-[100%] border-t border-cyan-100/20 opacity-70 rotate-[-8deg]" />
 
                   {/* Card Content */}
-                  <div className="relative z-10 p-6 sm:p-8 flex flex-col items-center flex-1 justify-between">
+                  <div className="relative z-10 p-6 sm:p-8 flex  flex-col items-center flex-1 justify-between">
                     {/* Top Center: 5 Stars */}
                     <div className="w-full flex flex-col items-center">
                       <div className="flex items-center justify-center space-x-1.5 pt-1 mb-5">
@@ -467,37 +373,8 @@ export default function ReviewsSection() {
                         {rev.role}
                       </p>
 
-                      {/* Subtle Item Capsule & Helpful Upvote */}
-                      <div className="w-full mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between gap-2 px-1 text-xs">
-                        <div className="flex items-center space-x-2 min-w-0">
-                          <img
-                            src={rev.productImage}
-                            alt={rev.productName}
-                            className="w-5 h-5 rounded object-contain bg-white/10 p-0.5 shrink-0"
-                          />
-                          <span className="truncate text-[11px] text-slate-300 font-medium max-w-[130px] sm:max-w-[170px]">
-                            {rev.productName}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center space-x-2 shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => toggleHelpful(rev.id)}
-                            className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all duration-200 cursor-pointer ${
-                              isLiked
-                                ? 'bg-cyan-400/20 text-cyan-200 border border-cyan-400/40 shadow-[0_0_12px_rgba(34,211,238,0.3)]'
-                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/10'
-                            }`}
-                            aria-label="Mark review as helpful"
-                          >
-                            <ThumbsUp
-                              className={`w-3 h-3 ${isLiked ? 'fill-cyan-200' : ''}`}
-                            />
-                            <span>{rev.helpfulCount}</span>
-                          </button>
-                        </div>
-                      </div>
+                 
+                     
                     </div>
                   </div>
                 </div>
