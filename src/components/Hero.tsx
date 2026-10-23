@@ -291,7 +291,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-[105vh] bg-[#02050f] text-white overflow-hidden flex flex-col justify-between pt-28 sm:pt-36 pb-20 select-none font-jakarta"
+      className="relative w-full min-h-[100vh] bg-[#02050f] text-white overflow-hidden flex flex-col justify-between pt-28 sm:pt-36 pb-20 select-none font-jakarta"
     >
       {/* 1. DEEP ABYSSAL BACKGROUND LAYERS */}
       {/* Radial oceanic glow */}
@@ -489,30 +489,10 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Sound / Ambient Immersion Switch */}
-          <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              onClick={() => setIsMuted(!isMuted)}
-              className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs text-slate-300 hover:text-white backdrop-blur-md transition-colors cursor-pointer"
-            >
-              {isMuted ? (
-                <>
-                  <VolumeX className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="hidden sm:inline">Ambient Audio</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-                  <span className="text-cyan-300 hidden sm:inline">Underwater Ambience</span>
-                </>
-              )}
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* 5. VERTICAL PAGINATION DOTS (Right Edge — Reference Image 1) */}
+
       <div
         ref={paginationRef}
         className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center space-y-5"

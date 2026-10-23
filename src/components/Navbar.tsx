@@ -145,6 +145,7 @@ export default function Navbar() {
             { label: 'Aquariums', href: '#aquariums' },
             { label: 'Rare Bettas', href: '#bettas' },
             { label: 'About Us', href: '#about' },
+            { label: 'Reviews', href: '#reviews' },
             { label: 'Contact', href: '#contact' },
           ].map((item) => (
             <a
@@ -346,11 +347,11 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden w-full bg-[#030917]/95 border-b border-white/10 px-6 py-4 flex flex-col space-y-3 backdrop-blur-2xl">
-          {['Home', 'Shop', 'Aquariums', 'Rare Bettas', 'About Us', 'Contact'].map(
+          {['Home', 'Shop', 'Aquariums', 'Rare Bettas', 'About Us', 'Reviews', 'Contact'].map(
             (label) => (
               <a
                 key={label}
-                href="#"
+                href={label === 'Reviews' ? '#reviews' : label === 'Shop' ? '#categories' : '#'}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-sm font-medium text-slate-200 hover:text-cyan-400 py-1"
               >
