@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import {
   Star,
   CheckCircle2,
@@ -19,7 +19,6 @@ interface Review {
   comment: string;
   productName: string;
   productImage: string;
-  productCategory: 'Live Species' | 'Biotopes' | 'Flora & CO2' | 'Customer Care';
   initials: string;
   avatarGradient: string;
   highlightBadge: string;
@@ -41,7 +40,6 @@ const INITIAL_REVIEWS: Review[] = [
       'I was genuinely nervous ordering a live specimen across states, but the thermal insulation box with 100% pure oxygen injection was scientific perfection. Water was at exactly 76°F upon unboxing. His fin symmetry and metallic scales are museum-grade.',
     productName: 'Samurai Black Dragon Halfmoon Betta',
     productImage: '/betta-vertical.png',
-    productCategory: 'Live Species',
     initials: 'MV',
     avatarGradient: 'from-blue-600 via-cyan-500 to-indigo-600',
     highlightBadge: 'Water Temp: 76°F On Arrival',
@@ -61,7 +59,6 @@ const INITIAL_REVIEWS: Review[] = [
       'The 45° mitered glass joints with transparent German silicone are virtually imperceptible. When filled with water, it feels like floating zero-gravity water in mid-air. Zero green tint distortion from any angle.',
     productName: '180L Ultra-Clear Low-Iron Biotope Tank',
     productImage: '/category-filtration.jpg',
-    productCategory: 'Biotopes',
     initials: 'ER',
     avatarGradient: 'from-emerald-500 via-teal-500 to-cyan-600',
     highlightBadge: '99.8% Light Transmittance',
@@ -81,7 +78,6 @@ const INITIAL_REVIEWS: Review[] = [
       'Usually in-vitro cups melt back during acclimatization, but Aquafy’s sterile Monte Carlo and Bucephalandra Deep Purple established roots in under 72 hours under high PAR lighting. The ceramic CO2 diffuser produces micro-dust clouds.',
     productName: 'Sterile Tissue Culture Bundle & CO2 System',
     productImage: '/plant-cutout.png',
-    productCategory: 'Flora & CO2',
     initials: 'DC',
     avatarGradient: 'from-purple-600 via-indigo-500 to-pink-500',
     highlightBadge: '100% Snail-Free Sterile Flora',
@@ -101,7 +97,6 @@ const INITIAL_REVIEWS: Review[] = [
       'Their WhatsApp/concierge support walked me through pH buffering and GH balancing before introducing my rare wild-type bettas. That level of after-sales dedication is practically non-existent elsewhere in this hobby.',
     productName: 'Lifetime Biologist Consultation & Bio-Nutrients',
     productImage: '/fertilizer-cutout.png',
-    productCategory: 'Customer Care',
     initials: 'SJ',
     avatarGradient: 'from-amber-500 via-orange-500 to-rose-500',
     highlightBadge: '14-Min Biologist Response',
@@ -121,7 +116,6 @@ const INITIAL_REVIEWS: Review[] = [
       'Operating in our master bedroom right beside the bed. I literally have to touch the canister head to feel vibration to know it’s running. Flow rate is laminar and gentle enough for long-finned bettas without buffeting.',
     productName: 'Silent Multi-Stage Biomedia Canister Filter',
     productImage: '/co2-cutout.png',
-    productCategory: 'Biotopes',
     initials: 'JM',
     avatarGradient: 'from-cyan-600 via-blue-600 to-slate-800',
     highlightBadge: '< 22 dB Silent Impeller',
@@ -141,7 +135,6 @@ const INITIAL_REVIEWS: Review[] = [
       'Photos on the site didn’t even capture how stunning the iridescent copper and orange marble patterns shine under 6500K spectrum. He ate micro-pellets eagerly within 2 hours of unboxing and flares with unmatched pride.',
     productName: 'Galaxy Koi Halfmoon Plakat Betta',
     productImage: '/betta-horizontal.png',
-    productCategory: 'Live Species',
     initials: 'AT',
     avatarGradient: 'from-rose-500 via-pink-500 to-orange-500',
     highlightBadge: 'A+ Show Grade Fin Spread',
@@ -151,31 +144,7 @@ const INITIAL_REVIEWS: Review[] = [
   },
 ];
 
-const CATEGORY_TABS = [
-  'All Reviews',
-  'Live Species',
-  'Biotopes',
-  'Flora & CO2',
-  'Customer Care',
-] as const;
-
-type FilterTab = (typeof CATEGORY_TABS)[number];
-
 export default function ReviewsSection() {
-  const [selectedTab, setSelectedTab] = useState<FilterTab>('All Reviews');
-  const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
-
-
-
-
-  // Filter reviews
-  const filteredReviews = useMemo(() => {
-    if (selectedTab === 'All Reviews') return reviews;
-    return reviews.filter((r) => r.productCategory === selectedTab);
-  }, [reviews, selectedTab]);
-
- 
-
   return (
     <section
       id="reviews"
@@ -255,7 +224,7 @@ export default function ReviewsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-4">
-          {filteredReviews.map((rev) => {
+          {INITIAL_REVIEWS.map((rev) => {
             return (
               <div
                 key={rev.id}
