@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ShieldCheck,
   Sparkles,
@@ -18,6 +18,11 @@ import {
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -420,7 +425,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright & Certification */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-1 sm:space-y-0 sm:space-x-3 text-xs text-slate-400">
-            <span>© {new Date().getFullYear()} AQUAFY Inc. All rights reserved.</span>
+            <span>© {year ?? 2026} AQUAFY Inc. All rights reserved.</span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span>Registered Florida Aquaculture Facility #AQ-94281</span>
           </div>
