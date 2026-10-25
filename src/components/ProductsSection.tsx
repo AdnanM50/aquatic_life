@@ -411,7 +411,7 @@ export default function ProductsSection() {
         </div>
 
         {/* Curated specimen cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 xl:gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 xl:gap-7">
           {PRODUCTS.map((product) => {
             const currentSlideIdx = activeSlides[product.id] || 0;
             const currentImage = product.images[currentSlideIdx] || product.image;
