@@ -101,7 +101,7 @@ export default function CategoriesSection() {
   return (
     <section
       id="categories"
-      className="relative w-full bg-white text-slate-900 py-20 lg:py-28 px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-slate-200/80 scroll-mt-12 select-none"
+      className="relative w-full bg-white text-slate-900 -mt-[2px] py-20 lg:py-28 px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-12 select-none"
     >
       {/* Subtle ambient light gradient */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
