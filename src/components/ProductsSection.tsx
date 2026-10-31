@@ -371,7 +371,7 @@ export default function ProductsSection() {
   return (
     <section
       id="products"
-      className="relative w-full bg-[#020a16] text-white py-20 lg:py-28 px-4 sm:px-8 lg:px-14 overflow-hidden border-y border-white/[0.07] select-none scroll-mt-12"
+      className="relative w-full bg-[#020a16] text-white py-20 lg:py-28 px-4 sm:px-8 lg:px-14 overflow-hidden select-none scroll-mt-12"
     >
       {/* Deep-water ambient light */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

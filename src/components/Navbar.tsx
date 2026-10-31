@@ -143,8 +143,8 @@ export default function Navbar() {
             { label: 'Home', href: '#', active: true },
             { label: 'Products', href: '#products' },
             { label: 'Categories', href: '#categories' },
-            { label: 'Rare Bettas', href: '#products' },
             { label: 'About Us', href: '#about' },
+            { label: 'Brands', href: '#brands' },
             { label: 'Reviews', href: '#reviews' },
             { label: 'Contact', href: '#contact' },
           ].map((item) => (
@@ -347,18 +347,24 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden w-full bg-[#030917]/95 border-b border-white/10 px-6 py-4 flex flex-col space-y-3 backdrop-blur-2xl">
-          {['Home', 'Shop', 'Aquariums', 'Rare Bettas', 'About Us', 'Reviews', 'Contact'].map(
-            (label) => (
-              <a
-                key={label}
-                href={label === 'Reviews' ? '#reviews' : label === 'Shop' ? '#categories' : '#'}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-sm font-medium text-slate-200 hover:text-cyan-400 py-1"
-              >
-                {label}
-              </a>
-            )
-          )}
+          {[
+            { label: 'Home', href: '#' },
+            { label: 'Products', href: '#products' },
+            { label: 'Categories', href: '#categories' },
+            { label: 'About Us', href: '#about' },
+            { label: 'Brands', href: '#brands' },
+            { label: 'Reviews', href: '#reviews' },
+            { label: 'Contact', href: '#contact' },
+          ].map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-sm font-medium text-slate-200 hover:text-cyan-400 py-1"
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
       )}
     </header>

@@ -1,10 +1,11 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
+import BrandSection from '@/components/BrandSection';
 import CategoriesSection from '@/components/CategoriesSection';
 import ProductsSection from '@/components/ProductsSection';
 import ReviewsSection from '@/components/ReviewsSection';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -12,10 +13,11 @@ export default function Home() {
       <Navbar />
       <Hero />
       <CategoriesSection />
-      <ProductsSection />
       <AboutSection />
+      <BrandSection />
+      <ProductsSection />
       <ReviewsSection />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
